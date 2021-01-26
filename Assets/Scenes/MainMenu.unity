@@ -1636,7 +1636,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Developper: \n\tgithub.com/Li-as\n\nAssets: \n\t3D.rina (Unity Asset Store)\n\twww.kenney.nl"
+  m_text: "Developer: \n\tgithub.com/Li-as\n\nAssets: \n\t3D.rina (Unity Asset Store)\n\twww.kenney.nl"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b05989f6f9f5d5843a8554883c2e4197, type: 2}
   m_sharedMaterial: {fileID: 4332646386201455573, guid: b05989f6f9f5d5843a8554883c2e4197, type: 2}
