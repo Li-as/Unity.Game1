@@ -1,19 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ObstaclesGenerator : ObjectPool
 {
-    [SerializeField] private GameObject _template;
+    [SerializeField] private Obstacle _template;
     [SerializeField] private float _minSecondsBetweenSpawn;
     [SerializeField] private float _maxSecondsBetweenSpawn;
 
     private float _elapsedTime;
     private float _secondsToNextSpawn;
 
+    public event UnityAction<GameObject> ObstacleSpawned;
+
     private void Start()
     {
-        Initialize(_template);
+        Initialize(_template.gameObject);
         _secondsToNextSpawn = Random.Range(_minSecondsBetweenSpawn, _maxSecondsBetweenSpawn);
     }
 
@@ -27,8 +30,8 @@ public class ObstaclesGenerator : ObjectPool
             {
                 obstacle.SetActive(true);
                 obstacle.transform.position = transform.position;
+                ObstacleSpawned?.Invoke(obstacle);
 
-                
                 _elapsedTime = 0;
                 _secondsToNextSpawn = Random.Range(_minSecondsBetweenSpawn, _maxSecondsBetweenSpawn);
             }

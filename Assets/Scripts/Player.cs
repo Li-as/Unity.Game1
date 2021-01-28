@@ -9,4 +9,12 @@ public class Player : MonoBehaviour
         Time.timeScale = 0;
         gameObject.SetActive(false);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out Coin coin))
+        {
+            coin.gameObject.SetActive(false);
+        }
+    }
 }
