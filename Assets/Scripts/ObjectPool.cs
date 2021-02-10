@@ -10,7 +10,7 @@ public class ObjectPool : MonoBehaviour
 
     private List<GameObject> _pool = new List<GameObject>();
 
-    protected void Initialize(GameObject template)
+    public void Initialize(GameObject template)
     {
         for (int i = 0; i < _capacity; i++)
         {
@@ -21,26 +21,11 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
-    protected bool TryGetObject(out GameObject result)
+    public bool TryGetObject(out GameObject result)
     {
         result = _pool.FirstOrDefault((t) => t.activeSelf == false);
 
         return result != null;
-    }
-
-    protected void DisableObjectsOutsideScreen()
-    {
-        foreach (GameObject item in _pool)
-        {
-            if (item.activeSelf == true)
-            {
-                Vector3 point = Camera.main.WorldToViewportPoint(item.transform.position);
-                if (point.x < 0)
-                {
-                    item.SetActive(false);
-                }
-            }
-        }
     }
 
     public void ResetPool()

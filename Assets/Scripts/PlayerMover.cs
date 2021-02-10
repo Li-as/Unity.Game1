@@ -13,14 +13,14 @@ public class PlayerMover : MonoBehaviour
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        _rigidbody.velocity = new Vector2(_speed, 0);
     }
 
     private void Update()
     {
+        _rigidbody.velocity = new Vector2(_speed, _rigidbody.velocity.y);
+
         if (Input.GetMouseButtonDown(0) && _isInAir == false)
         {
-            _rigidbody.velocity = new Vector2(_speed, 0);
             _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Force);
             _isInAir = true;
         }

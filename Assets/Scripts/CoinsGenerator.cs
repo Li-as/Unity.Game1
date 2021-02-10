@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinsGenerator : ObjectPool
+public class CoinsGenerator : MonoBehaviour
 {
+    [SerializeField] private ObjectPool _coinsPool;
     [SerializeField] private Coin _template;
     [SerializeField] private ObstaclesGenerator _obstaclesGenerator;
     [SerializeField] private int _spawnChance;
@@ -20,7 +21,7 @@ public class CoinsGenerator : ObjectPool
 
     private void Start()
     {
-        Initialize(_template.gameObject);
+        _coinsPool.Initialize(_template.gameObject);
     }
 
     private void OnObstacleSpawned(GameObject obstacle)
@@ -31,23 +32,20 @@ public class CoinsGenerator : ObjectPool
             if (spawnLines != null)
             {
                 int spawnLineNumber = Random.Range(0, spawnLines.Length);
-                int spawnPointsCount = spawnLines[spawnLineNumber].transform.childCount;
+                Transform[] spawnPoints = spawnLines[spawnLineNumber].GetComponentsInChildren<Transform>();
 
-                if (spawnPointsCount > 0)
+                for (int i = 0; i < spawnPoints.Length; i++)
                 {
-                    for (int i = 0; i < spawnPointsCount; i++)
+                    if (spawnPoints[i] != spawnLines[spawnLineNumber].transform)
                     {
-                        if (TryGetObject(out GameObject coin))
+                        if (_coinsPool.TryGetObject(out GameObject coin))
                         {
                             coin.SetActive(true);
-                            Transform spawnPoint = spawnLines[spawnLineNumber].transform.GetChild(i);
-                            coin.transform.position = spawnPoint.position;
+                            coin.transform.position = spawnPoints[i].position;
                         }
                     }
                 }
             }
         }
-
-        DisableObjectsOutsideScreen();
     }
 }

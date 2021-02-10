@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ObstaclesGenerator : ObjectPool
+public class ObstaclesGenerator : MonoBehaviour
 {
+    [SerializeField] private ObjectPool _obstaclesPool;
     [SerializeField] private Obstacle _template;
     [SerializeField] private float _minSecondsBetweenSpawn;
     [SerializeField] private float _maxSecondsBetweenSpawn;
@@ -16,7 +17,7 @@ public class ObstaclesGenerator : ObjectPool
 
     private void Start()
     {
-        Initialize(_template.gameObject);
+        _obstaclesPool.Initialize(_template.gameObject);
         _secondsToNextSpawn = Random.Range(_minSecondsBetweenSpawn, _maxSecondsBetweenSpawn);
     }
 
@@ -26,7 +27,7 @@ public class ObstaclesGenerator : ObjectPool
 
         if (_elapsedTime >= _secondsToNextSpawn)
         {
-            if (TryGetObject(out GameObject obstacle))
+            if (_obstaclesPool.TryGetObject(out GameObject obstacle))
             {
                 obstacle.SetActive(true);
                 obstacle.transform.position = transform.position;
@@ -35,8 +36,6 @@ public class ObstaclesGenerator : ObjectPool
                 _elapsedTime = 0;
                 _secondsToNextSpawn = Random.Range(_minSecondsBetweenSpawn, _maxSecondsBetweenSpawn);
             }
-
-            DisableObjectsOutsideScreen();
         }
     }
 }
