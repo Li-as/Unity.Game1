@@ -29,21 +29,14 @@ public class CoinsGenerator : MonoBehaviour
         if (Random.Range(1, 101) <= _spawnChance)
         {
             CoinsSpawnLine[] spawnLines = obstacle.GetComponentsInChildren<CoinsSpawnLine>();
-            if (spawnLines != null)
-            {
-                int spawnLineNumber = Random.Range(0, spawnLines.Length);
-                Transform[] spawnPoints = spawnLines[spawnLineNumber].GetComponentsInChildren<Transform>();
+            int spawnLineNumber = Random.Range(0, spawnLines.Length);
 
-                for (int i = 0; i < spawnPoints.Length; i++)
+            foreach (Transform spawnPoint in spawnLines[spawnLineNumber].SpawnPoints)
+            {
+                if (_coinsPool.TryGetObject(out GameObject coin))
                 {
-                    if (spawnPoints[i] != spawnLines[spawnLineNumber].transform)
-                    {
-                        if (_coinsPool.TryGetObject(out GameObject coin))
-                        {
-                            coin.SetActive(true);
-                            coin.transform.position = spawnPoints[i].position;
-                        }
-                    }
+                    coin.SetActive(true);
+                    coin.transform.position = spawnPoint.position;
                 }
             }
         }

@@ -160,6 +160,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec224c0128e7e140b0da118f7f523a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnPoints:
+  - {fileID: 8027176802084221777}
+  - {fileID: 1759399274798220692}
+  - {fileID: 1711730065311823670}
 --- !u!1 &4350920728919603854
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,3 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec224c0128e7e140b0da118f7f523a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnPoints:
+  - {fileID: 7101817509215646306}
+  - {fileID: 8196617505859199433}
+  - {fileID: 4464042151571761905}
